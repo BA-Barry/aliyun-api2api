@@ -1,0 +1,31 @@
+{
+  "listen": ":8080",
+  "client_api_keys": ["${GATEWAY_API_KEY}"],
+  "admin_api_key": "${ADMIN_API_KEY}",
+  "strategy": "least_inflight",
+  "default_openai_base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+  "default_anthropic_base_url": "https://dashscope.aliyuncs.com/apps/anthropic",
+  "max_attempts": 3,
+  "max_concurrent_requests": 10,
+  "max_concurrent_per_upstream": 5,
+  "max_request_body_bytes": 4194304,
+  "max_error_body_bytes": 262144,
+  "response_header_timeout": "90s",
+  "idle_conn_timeout": "90s",
+  "base_cooldown": "30s",
+  "credential_cooldown": "30m",
+  "allow_insecure_upstream": false,
+  "allowed_upstream_host_suffixes": ["aliyuncs.com"],
+  "upstreams": [
+    {
+      "id": "aliyun-key-1",
+      "api_key": "${ALIYUN_API_KEY_1}",
+      "weight": 1
+    },
+    {
+      "id": "aliyun-key-2",
+      "api_key": "${ALIYUN_API_KEY_2}",
+      "weight": 1
+    }
+  ]
+}

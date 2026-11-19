@@ -1,0 +1,58 @@
+services:
+  api2api:
+    build:
+      context: .
+      args:
+        VERSION: local
+    image: aliyun-api2api:local
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      CONFIG_FILE: /app/config.json
+    volumes:
+      - ./config.json:/app/config.json:ro
+    secrets:
+      - gateway_api_key
+      - admin_api_key
+      - aliyun_api_key_1
+      - aliyun_api_key_2
+    ports:
+      - "127.0.0.1:8080:8080"
+    healthcheck:
+      test: ["CMD", "/app/api2api", "healthcheck"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    mem_limit: 1g
+    mem_reservation: 128m
+    cpus: "1.75"
+    pids_limit: 256
+    ulimits:
+      nofile:
+        soft: 8192
+        hard: 8192
+    stop_grace_period: 35s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+secrets:
+  gateway_api_key:
+    file: ./secrets/gateway_api_key
+  admin_api_key:
+    file: ./secrets/admin_api_key
+  aliyun_api_key_1:
+    file: ./secrets/aliyun_api_key_1
+  aliyun_api_key_2:
+    file: ./secrets/aliyun_api_key_2

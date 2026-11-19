@@ -1,0 +1,13 @@
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+config.json
+secrets/
+*.pem
+*.key
+/api2api
+/api2api.exe
+coverage.out
+work

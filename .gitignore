@@ -1,0 +1,8 @@
+.env
+config.json
+secrets/
+*.pem
+*.key
+/api2api
+/api2api.exe
+coverage.out
